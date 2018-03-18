@@ -4,7 +4,7 @@ require 'models/product'
 require 'services/product_finder'
 
 describe 'ProductFinder' do
-  describe '#call' do
+  describe '#find' do
     it 'should throw exception when product with code not found' do
       product = Product.new('Vegemite Scroll', 'VS5', [])
       bakery = Bakery.new([product])
