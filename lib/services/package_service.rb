@@ -38,14 +38,14 @@ class PackageService
     end
 
     def get_better_solution(best_solution, solution)
-      if best_solution && (count_of_items(best_solution) <= count_of_items(solution))
+      if best_solution && (count_of_packs(best_solution) <= count_of_packs(solution))
         best_solution
       else
         solution
       end
     end
 
-    def count_of_items(solution)
+    def count_of_packs(solution)
       solution.values.inject(0, :+)
     end
   end
