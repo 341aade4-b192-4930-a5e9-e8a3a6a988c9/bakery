@@ -9,7 +9,7 @@ describe 'OutputFormatter' do
     it 'should return formatted string' do
       allow(TotalPriceCalculator).to receive(:calculate).and_return(10)
 
-      output = OutputFormatter.format(5, 'VS5', { Pack.new(5, 10) => 1 })
+      output = OutputFormatter.format(5, 'VS5', Pack.new(5, 10) => 1)
 
       expect(output).to eq "5 VS5 $10\n1 x 5 $10\n"
     end

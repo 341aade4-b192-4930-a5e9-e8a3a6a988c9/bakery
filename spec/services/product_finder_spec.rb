@@ -10,7 +10,7 @@ describe 'ProductFinder' do
       product = Product.new('Vegemite Scroll', 'VS5', [pack])
       bakery = Bakery.new([product])
 
-      expect{ ProductFinder.find(bakery, 'NOT_FOUND') }.to raise_error(ProductFinder::ProductNotFound)
+      expect { ProductFinder.find(bakery, 'NOT_FOUND') }.to raise_error(ProductFinder::ProductNotFound)
     end
 
     it 'should return product by code' do

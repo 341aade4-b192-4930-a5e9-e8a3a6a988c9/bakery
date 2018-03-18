@@ -14,9 +14,9 @@ describe 'Product' do
     end
 
     it 'should throw argument exception when some arg is nil' do
-      expect{ Product.new(nil, 'VS5', []) }.to raise_error(ArgumentError)
-      expect{ Product.new('Vegemite Scroll', nil, []) }.to raise_error(ArgumentError)
-      expect{ Product.new('Vegemite Scroll', 'VS5', nil) }.to raise_error(ArgumentError)
+      expect { Product.new(nil, 'VS5', []) }.to raise_error(ArgumentError)
+      expect { Product.new('Vegemite Scroll', nil, []) }.to raise_error(ArgumentError)
+      expect { Product.new('Vegemite Scroll', 'VS5', nil) }.to raise_error(ArgumentError)
     end
   end
 end

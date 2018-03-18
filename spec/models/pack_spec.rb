@@ -12,8 +12,8 @@ describe 'Pack' do
     end
 
     it 'should throw argument exception when invalid args' do
-      expect{ Pack.new("invalid", 2) }.to raise_error(ArgumentError)
-      expect{ Pack.new(1, "invalid") }.to raise_error(ArgumentError)
+      expect { Pack.new('invalid', 2) }.to raise_error(ArgumentError)
+      expect { Pack.new(1, 'invalid') }.to raise_error(ArgumentError)
     end
   end
 end

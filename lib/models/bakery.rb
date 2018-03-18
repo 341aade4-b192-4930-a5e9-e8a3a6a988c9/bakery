@@ -1,8 +1,8 @@
-class Bakery < Struct.new(:products)
+class Bakery
   attr_accessor :products
 
   def initialize(products)
-    raise ArgumentError, "products cannot be nil or empty" if products == nil || products.empty?
+    raise ArgumentError, 'products cannot be nil or empty' if products.nil? || products.empty?
 
     @products = products
   end

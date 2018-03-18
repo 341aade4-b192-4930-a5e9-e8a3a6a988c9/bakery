@@ -15,7 +15,7 @@ describe 'Bakery' do
     end
 
     it 'should throw argument exception when products nil' do
-      expect{ Bakery.new(nil) }.to raise_error(ArgumentError)
+      expect { Bakery.new(nil) }.to raise_error(ArgumentError)
     end
   end
 end
