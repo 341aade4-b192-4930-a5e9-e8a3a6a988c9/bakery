@@ -1,4 +1,4 @@
-class PackageService
+class FastPackageService
   class << self
 
     def call(product, number_of_items)
