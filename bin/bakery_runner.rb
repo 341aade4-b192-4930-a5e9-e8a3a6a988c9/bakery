@@ -40,7 +40,13 @@ bakery = setup_bakery
 
 ARGF.each do |line|
   begin
-    p hotel.make_reservation(ReservationRequest.parse(line))
+    number_of_items, code = InputParser.parse(line)
+
+    product = BakeryService.find_product(code)
+
+    solution = FastPackageService.call(product, number_of_items)
+
+    p SolutionFormatter.format(solution)
   rescue StandardError
     p 'No option'
   end
