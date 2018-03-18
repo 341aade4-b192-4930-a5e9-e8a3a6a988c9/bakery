@@ -6,7 +6,8 @@ require 'services/fast_solution_finder'
 describe 'FastSolutionFinder' do
   describe '#solve' do
     it 'should return "No option" when there are packs' do
-      product = Product.new('Vegemite Scroll', 'VS5', [])
+      pack = Pack.new(2, 30)
+      product = Product.new('Vegemite Scroll', 'VS5', [pack])
 
       expect(FastSolutionFinder.solve(product, 1)).to eq(nil)
     end
