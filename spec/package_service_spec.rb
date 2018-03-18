@@ -9,16 +9,12 @@ describe 'PackageService' do
       expect(PackageService.call(Product.new("name", "code", []), 1)).to eq(nil)
     end
 
-    # it "my test" do
-    #   room1 = Room.new("Single", 1, 30)
-    #   room2 = Room.new("Double", 2, 50)
-    #   room3 = Room.new("Family", 4, 85)
-    #   finder = ReservationFinder.new({
-    #                                      room1.type => {:room => room1, :quantity => 2},
-    #                                      room3.type => {:room => room3, :quantity => 1},
-    #                                      room2.type => {:room => room2, :quantity => 3}})
-    #
-    #   expect(finder.solve(2)).to eq(Reservation.new([room2]))
-    # end
+    it "my test" do
+      pack = Pack.new(1, 30)
+
+      product = Product.new("name", "code", [pack])
+
+      expect(PackageService.call(product, 1)).to eq({ 1 => 1})
+    end
   end
 end
