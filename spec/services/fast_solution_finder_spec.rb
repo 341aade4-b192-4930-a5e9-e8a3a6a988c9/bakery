@@ -3,8 +3,8 @@ require 'models/pack'
 require 'models/product'
 require 'services/fast_solution_finder'
 
-describe 'PackageService' do
-  describe '#call' do
+describe 'FastSolutionFinder' do
+  describe '#solve' do
     it 'should return "No option" when there are packs' do
       product = Product.new('Vegemite Scroll', 'VS5', [])
 

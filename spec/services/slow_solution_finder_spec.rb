@@ -3,8 +3,8 @@ require 'models/pack'
 require 'models/product'
 require 'services/slow_solution_finder'
 
-describe 'SlowPackageService' do
-  describe '#call' do
+describe 'SlowSolutionFinder' do
+  describe '#solve' do
     skip 'just case, where service with recursion work for a long time' do
       # 21.36 seconds
 
