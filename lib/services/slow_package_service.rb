@@ -1,5 +1,4 @@
 class SlowPackageService
-
   class << self
     def call(product, number_of_items)
       find_solution(product.list_of_packs, number_of_items)
@@ -8,15 +7,15 @@ class SlowPackageService
     private
 
     def find_solution(list_of_packs, number_of_items)
-      return {} if (number_of_items == 0)
-      return nil if (number_of_items < 0 || list_of_packs.empty?)
+      return {} if number_of_items == 0
+      return nil if number_of_items < 0 || list_of_packs.empty?
 
       first_pack = list_of_packs.first
 
       best_solution = nil
       count = 0
 
-      while (count * first_pack.count <= number_of_items) do
+      while count * first_pack.count <= number_of_items
         solution = try_get_next_pack(list_of_packs, number_of_items - count * first_pack.count)
 
         if solution
