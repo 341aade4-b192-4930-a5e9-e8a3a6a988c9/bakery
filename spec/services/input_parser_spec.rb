@@ -1,6 +1,3 @@
-require 'models/bakery'
-require 'models/pack'
-require 'models/product'
 require 'services/input_parser'
 
 describe 'InputParser' do
