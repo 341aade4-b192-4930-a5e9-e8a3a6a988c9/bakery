@@ -1,6 +1,5 @@
 class FastSolutionFinder
   class << self
-
     def solve(product, number_of_items)
       find_solution(product.list_of_packs, number_of_items)
     end
