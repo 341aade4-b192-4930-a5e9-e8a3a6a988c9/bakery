@@ -22,12 +22,7 @@ class PackageService
         if solution
           solution[first_pack.count] = count if count > 0
 
-          best_solution =
-            if best_solution && (count_of_items(best_solution) <= count_of_items(solution))
-              best_solution
-            else
-              solution
-            end
+          best_solution = get_better_solution(best_solution, solution)
         end
 
         count += 1
@@ -40,6 +35,14 @@ class PackageService
       list_without_first_pack = list_of_packs.drop(1)
 
       find_solution(list_without_first_pack, number_of_items)
+    end
+
+    def get_better_solution(best_solution, solution)
+      if best_solution && (count_of_items(best_solution) <= count_of_items(solution))
+        best_solution
+      else
+        solution
+      end
     end
 
     def count_of_items(solution)
