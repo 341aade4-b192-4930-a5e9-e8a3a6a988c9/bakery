@@ -8,24 +8,24 @@ class PackageService
     private
 
     def find_solution(list_of_packs, number_of_items)
-      queue = Queue.new
-      queue << { value: 0, from: nil }
-
-      best_solutions = {}
+      queue = []
+      queue << {value: 0, solution: {}}
 
       while !queue.empty? do
-        item = queue.pop
+        item = queue.shift
 
-        list_of_packs.index do |pack|
-          queue << { value: item.value + pack.count, from: item.value }
+        value = item[:value]
+        solution = item[:solution]
+
+        return solution if value >= number_of_items
+
+        list_of_packs.each do |pack|
+          clone_solution = solution.clone
+          clone_solution[pack.count] = (clone_solution[pack.count] || 0) + 1
+
+          queue << {value: value + pack.count, solution: clone_solution}
         end
-
-        best_solutions[item.value] = item.from
-
-        break if item.value >= number_of_items
       end
-
-      
     end
   end
 end
