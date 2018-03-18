@@ -15,7 +15,7 @@ class PackageService
       solution_with_next_pack = try_get_next_pack(list_of_packs, number_of_items)
 
       if solution_with_first_pack && solution_with_next_pack
-        if count_of_items(solution_with_first_pack) < count_of_items(solution_with_next_pack)
+        if count_of_items(solution_with_first_pack) <= count_of_items(solution_with_next_pack)
           solution_with_first_pack
         else
           solution_with_next_pack
@@ -40,14 +40,7 @@ class PackageService
     def try_get_next_pack(list_of_packs, number_of_items)
       list_without_first_pack = list_of_packs.drop(1)
 
-      solution =
-          find_solution(list_without_first_pack, number_of_items - list_without_first_pack.first.count) if list_without_first_pack.any?
-
-      if solution
-        solution[list_without_first_pack.first.count] ||= 0
-        solution[list_without_first_pack.first.count] += 1
-        solution
-      end
+      find_solution(list_without_first_pack, number_of_items) if list_without_first_pack.any?
     end
 
     def count_of_items(solution)
