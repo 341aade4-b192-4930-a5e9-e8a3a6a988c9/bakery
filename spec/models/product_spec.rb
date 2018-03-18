@@ -2,7 +2,7 @@ require 'models/bakery'
 require 'models/product'
 require 'models/pack'
 
-describe 'Bakery' do
+describe 'Product' do
   describe '#new' do
     it 'should create product' do
       pack = Pack.new(1, 1)
