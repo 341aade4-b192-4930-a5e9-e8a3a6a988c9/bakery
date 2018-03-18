@@ -1,7 +1,7 @@
-class FastPackageService
+class FastSolutionFinder
   class << self
-    # TODO: rename solutionfinder?
-    def call(product, number_of_items)
+
+    def solve(product, number_of_items)
       find_solution(product.list_of_packs, number_of_items)
     end
 

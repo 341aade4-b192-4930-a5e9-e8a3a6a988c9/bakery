@@ -3,7 +3,7 @@ require 'optparse'
 require_relative '../lib/models/bakery'
 require_relative '../lib/models/pack'
 require_relative '../lib/models/product'
-require_relative '../lib/services/fast_package_service'
+require_relative '../lib/services/fast_solution_finder'
 
 def setup_bakery
   product_vs5 =
@@ -44,7 +44,7 @@ ARGF.each do |line|
 
     product = BakeryService.find_product(bakery, code)
 
-    solution = FastPackageService.call(product, number_of_items)
+    solution = FastSolutionFinder.solve(product, number_of_items)
 
     p SolutionFormatter.format(solution)
   rescue StandardError

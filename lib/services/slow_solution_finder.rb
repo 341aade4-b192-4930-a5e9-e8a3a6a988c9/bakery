@@ -1,6 +1,6 @@
-class SlowPackageService
+class SlowSolutionFinder
   class << self
-    def call(product, number_of_items)
+    def solve(product, number_of_items)
       find_solution(product.list_of_packs, number_of_items)
     end
 

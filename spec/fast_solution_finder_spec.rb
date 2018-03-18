@@ -1,28 +1,28 @@
 require 'models/bakery'
 require 'models/pack'
 require 'models/product'
-require 'services/fast_package_service'
+require 'services/fast_solution_finder'
 
 describe 'PackageService' do
   describe '#call' do
     it 'should return "No option" when there are packs' do
       product = Product.new('Vegemite Scroll', 'VS5', [])
 
-      expect(FastPackageService.call(product, 1)).to eq(nil)
+      expect(FastSolutionFinder.solve(product, 1)).to eq(nil)
     end
 
     it 'should return "No option" when requested buns is not odd, but all packs include odd number of buns' do
       pack = Pack.new(2, 30)
       product = Product.new('Vegemite Scroll', 'VS5', [pack])
 
-      expect(FastPackageService.call(product, 13)).to eq(nil)
+      expect(FastSolutionFinder.solve(product, 13)).to eq(nil)
     end
 
     it 'should return the one pack that has the right number of buns' do
       pack = Pack.new(13, 30)
       product = Product.new('Vegemite Scroll', 'VS5', [pack])
 
-      expect(FastPackageService.call(product, 13)).to eq(13 => 1)
+      expect(FastSolutionFinder.solve(product, 13)).to eq(13 => 1)
     end
 
     it 'should process a lot of packs types correctly' do
@@ -32,11 +32,11 @@ describe 'PackageService' do
 
       product = Product.new('Vegemite Scroll', 'VS5', [pack1, pack2, pack3])
 
-      expect(FastPackageService.call(product, 6)).to eq(3 => 2)
-      expect(FastPackageService.call(product, 14)).to eq(3 => 4, 2 => 1)
-      expect(FastPackageService.call(product, 15)).to eq(3 => 5)
+      expect(FastSolutionFinder.solve(product, 6)).to eq(3 => 2)
+      expect(FastSolutionFinder.solve(product, 14)).to eq(3 => 4, 2 => 1)
+      expect(FastSolutionFinder.solve(product, 15)).to eq(3 => 5)
 
-      expect(FastPackageService.call(product, 15)).to eq(3 => 5)
+      expect(FastSolutionFinder.solve(product, 15)).to eq(3 => 5)
     end
 
     it 'should process complex tasks correctly' do
@@ -46,11 +46,11 @@ describe 'PackageService' do
 
       product = Product.new('Vegemite Scroll', 'VS5', [pack1, pack2, pack3])
 
-      expect(FastPackageService.call(product, 14)).to eq(7 => 2)
-      expect(FastPackageService.call(product, 120)).to eq(7 => 2, 11 => 1, 19 => 5)
-      expect(FastPackageService.call(product, 150)).to eq(7 => 2, 11 => 2, 19 => 6)
+      expect(FastSolutionFinder.solve(product, 14)).to eq(7 => 2)
+      expect(FastSolutionFinder.solve(product, 120)).to eq(7 => 2, 11 => 1, 19 => 5)
+      expect(FastSolutionFinder.solve(product, 150)).to eq(7 => 2, 11 => 2, 19 => 6)
 
-      expect(FastPackageService.call(product, 15)).to eq(nil)
+      expect(FastSolutionFinder.solve(product, 15)).to eq(nil)
     end
 
     it 'should process complex tasks correctly' do
@@ -64,7 +64,7 @@ describe 'PackageService' do
 
       product = Product.new('Vegemite Scroll', 'VS5', [pack1, pack2, pack3, pack4, pack5, pack6])
 
-      expect(FastPackageService.call(product, 1500)).to eq(7 => 2, 15 => 2, 112 => 13)
+      expect(FastSolutionFinder.solve(product, 1500)).to eq(7 => 2, 15 => 2, 112 => 13)
     end
 
     it 'should process fast with large numbers' do
@@ -76,7 +76,7 @@ describe 'PackageService' do
 
       product = Product.new('Vegemite Scroll', 'VS5', [pack1, pack2, pack3])
 
-      expect(FastPackageService.call(product, 1500)).to eq(3 => 500)
+      expect(FastSolutionFinder.solve(product, 1500)).to eq(3 => 500)
     end
   end
 end
