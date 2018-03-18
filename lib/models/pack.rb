@@ -14,6 +14,6 @@ class Pack
   end
 
   def hash
-    [ count, price ].hash
+    [count, price].hash
   end
 end
