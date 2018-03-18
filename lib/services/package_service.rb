@@ -9,38 +9,37 @@ class PackageService
 
     def find_solution(list_of_packs, number_of_items)
       return {} if (number_of_items == 0)
-      return nil if (number_of_items < 0)
+      return nil if (number_of_items < 0 || list_of_packs.empty?)
 
-      solution_with_first_pack = try_get_first_pack(list_of_packs, number_of_items)
-      solution_with_next_pack = try_get_next_pack(list_of_packs, number_of_items)
+      first_pack = list_of_packs.first
 
-      if solution_with_first_pack && solution_with_next_pack
-        if count_of_items(solution_with_first_pack) <= count_of_items(solution_with_next_pack)
-          solution_with_first_pack
-        else
-          solution_with_next_pack
+      best_solution = nil
+      count = 0
+
+      while (count * first_pack.count <= number_of_items) do
+        solution = try_get_next_pack(list_of_packs, number_of_items - count * first_pack.count)
+
+        if solution
+          solution[first_pack.count] = count if count > 0
+
+          best_solution =
+            if best_solution && (count_of_items(best_solution) <= count_of_items(solution))
+              best_solution
+            else
+              solution
+            end
         end
 
-      else
-        solution_with_first_pack || solution_with_next_pack
+        count += 1
       end
-    end
 
-    def try_get_first_pack(list_of_packs, number_of_items)
-      solution =
-          find_solution(list_of_packs, number_of_items - list_of_packs.first.count) if list_of_packs.any?
-
-      if solution
-        solution[list_of_packs.first.count] ||= 0
-        solution[list_of_packs.first.count] += 1
-        solution
-      end
+      best_solution
     end
 
     def try_get_next_pack(list_of_packs, number_of_items)
       list_without_first_pack = list_of_packs.drop(1)
 
-      find_solution(list_without_first_pack, number_of_items) if list_without_first_pack.any?
+      find_solution(list_without_first_pack, number_of_items)
     end
 
     def count_of_items(solution)
