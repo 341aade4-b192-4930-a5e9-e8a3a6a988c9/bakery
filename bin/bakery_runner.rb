@@ -15,7 +15,7 @@ def setup_bakery
       'Vegemite Scroll',
       'VS5',
       [
-        Pack.new(3, 6.99), Pack.new(2, 9.95)
+        Pack.new(3, 6.99), Pack.new(5, 8.99)
       ]
     )
 

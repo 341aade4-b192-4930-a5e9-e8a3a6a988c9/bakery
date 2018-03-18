@@ -11,7 +11,7 @@ describe 'OutputFormatter' do
 
       output = OutputFormatter.format(5, 'VS5', { Pack.new(5, 10) => 1 })
 
-      expect(output).to eq "5 VS5 $10\n5 x 1 $10\n"
+      expect(output).to eq "5 VS5 $10\n1 x 5 $10\n"
     end
   end
 end

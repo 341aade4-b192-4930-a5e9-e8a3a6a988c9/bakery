@@ -6,7 +6,7 @@ class OutputFormatter
       result = "#{number_of_items} #{code} $#{TotalPriceCalculator.calculate(solution)}\n"
 
       solution.inject(result) do |result, (pack, count)|
-        result + "#{pack.count} x #{count} $#{pack.price}\n"
+        result + "#{count} x #{pack.count} $#{pack.price}\n"
       end
     end
   end
