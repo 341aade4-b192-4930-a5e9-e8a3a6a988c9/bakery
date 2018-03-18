@@ -3,7 +3,7 @@ class InputParser
 
   class << self
     def parse(input)
-      tokens = line.split
+      tokens = input.split
       return Integer(tokens[0]), tokens[1]
     rescue StandardError
       raise InvalidInput, "Invalid input: #{input}"

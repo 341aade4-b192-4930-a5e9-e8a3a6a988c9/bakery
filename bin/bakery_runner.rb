@@ -4,6 +4,10 @@ require_relative '../lib/models/bakery'
 require_relative '../lib/models/pack'
 require_relative '../lib/models/product'
 require_relative '../lib/services/fast_solution_finder'
+require_relative '../lib/services/total_price_calculator'
+require_relative '../lib/services/bakery_service'
+require_relative '../lib/services/input_parser'
+require_relative '../lib/services/output_formatter'
 
 def setup_bakery
   product_vs5 =
@@ -43,11 +47,10 @@ ARGF.each do |line|
     number_of_items, code = InputParser.parse(line)
 
     product = BakeryService.find_product(bakery, code)
-
     solution = FastSolutionFinder.solve(product, number_of_items)
 
-    p SolutionFormatter.format(solution)
-  rescue StandardError
-    p 'No option'
+    puts OutputFormatter.format(number_of_items, code, solution)
+  rescue StandardError => e
+    puts e.message
   end
 end
