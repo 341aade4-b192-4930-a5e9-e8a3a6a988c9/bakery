@@ -1,2 +1,2 @@
-class Product < Struct.new(:products)
+class Bakery < Struct.new(:products)
 end
