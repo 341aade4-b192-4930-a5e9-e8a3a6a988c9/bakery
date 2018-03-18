@@ -1,6 +1,6 @@
 class PackageService
-
   class << self
+
     def call(product, number_of_items)
       find_solution(product.list_of_packs, number_of_items)
     end
@@ -8,45 +8,24 @@ class PackageService
     private
 
     def find_solution(list_of_packs, number_of_items)
-      return {} if (number_of_items == 0)
-      return nil if (number_of_items < 0 || list_of_packs.empty?)
+      queue = Queue.new
+      queue << { value: 0, from: nil }
 
-      first_pack = list_of_packs.first
+      best_solutions = {}
 
-      best_solution = nil
-      count = 0
+      while !queue.empty? do
+        item = queue.pop
 
-      while (count * first_pack.count <= number_of_items) do
-        solution = try_get_next_pack(list_of_packs, number_of_items - count * first_pack.count)
-
-        if solution
-          solution[first_pack.count] = count if count > 0
-
-          best_solution = get_better_solution(best_solution, solution)
+        list_of_packs.index do |pack|
+          queue << { value: item.value + pack.count, from: item.value }
         end
 
-        count += 1
+        best_solutions[item.value] = item.from
+
+        break if item.value >= number_of_items
       end
 
-      best_solution
-    end
-
-    def try_get_next_pack(list_of_packs, number_of_items)
-      list_without_first_pack = list_of_packs.drop(1)
-
-      find_solution(list_without_first_pack, number_of_items)
-    end
-
-    def get_better_solution(best_solution, solution)
-      if best_solution && (count_of_packs(best_solution) <= count_of_packs(solution))
-        best_solution
-      else
-        solution
-      end
-    end
-
-    def count_of_packs(solution)
-      solution.values.inject(0, :+)
+      
     end
   end
 end
