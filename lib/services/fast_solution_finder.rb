@@ -8,7 +8,7 @@ class FastSolutionFinder
     private
 
     def find_solution(list_of_packs, number_of_items)
-      best_solutions = { 0 => {} }
+      best_solutions = { 0 => Solution.new }
 
       number_of_items.times do |value|
         solution = best_solutions[value]
@@ -17,7 +17,7 @@ class FastSolutionFinder
 
         list_of_packs.each do |pack|
           clone_solution = solution.clone
-          clone_solution[pack.count] = (clone_solution[pack.count] || 0) + 1
+          clone_solution.add(pack)
 
           best_solutions[value + pack.count] ||= clone_solution
         end

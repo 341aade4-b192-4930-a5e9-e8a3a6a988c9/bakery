@@ -1,6 +1,7 @@
 require 'models/bakery'
 require 'models/pack'
 require 'models/product'
+require 'models/solution'
 require 'services/fast_solution_finder'
 
 describe 'PackageService' do
@@ -22,7 +23,7 @@ describe 'PackageService' do
       pack = Pack.new(13, 30)
       product = Product.new('Vegemite Scroll', 'VS5', [pack])
 
-      expect(FastSolutionFinder.solve(product, 13)).to eq(13 => 1)
+      expect(FastSolutionFinder.solve(product, 13)).to eq(13 => { pack: pack, count: 1 })
     end
 
     it 'should process a lot of packs types correctly' do
@@ -32,11 +33,11 @@ describe 'PackageService' do
 
       product = Product.new('Vegemite Scroll', 'VS5', [pack1, pack2, pack3])
 
-      expect(FastSolutionFinder.solve(product, 6)).to eq(3 => 2)
-      expect(FastSolutionFinder.solve(product, 14)).to eq(3 => 4, 2 => 1)
-      expect(FastSolutionFinder.solve(product, 15)).to eq(3 => 5)
+      expect(FastSolutionFinder.solve(product, 6)).to eq(3 => { pack: pack3, count: 2 })
+      expect(FastSolutionFinder.solve(product, 14)).to eq(2 => { pack: pack2, count: 1 }, 3 => { pack: pack3, count: 4 })
+      expect(FastSolutionFinder.solve(product, 15)).to eq(3 => { pack: pack3, count: 5 })
 
-      expect(FastSolutionFinder.solve(product, 15)).to eq(3 => 5)
+      expect(FastSolutionFinder.solve(product, 15)).to eq(3 => { pack: pack3, count: 5 })
     end
 
     it 'should process complex tasks correctly' do
@@ -46,9 +47,9 @@ describe 'PackageService' do
 
       product = Product.new('Vegemite Scroll', 'VS5', [pack1, pack2, pack3])
 
-      expect(FastSolutionFinder.solve(product, 14)).to eq(7 => 2)
-      expect(FastSolutionFinder.solve(product, 120)).to eq(7 => 2, 11 => 1, 19 => 5)
-      expect(FastSolutionFinder.solve(product, 150)).to eq(7 => 2, 11 => 2, 19 => 6)
+      expect(FastSolutionFinder.solve(product, 14)).to eq(7 => { pack: pack1, count: 2 })
+      expect(FastSolutionFinder.solve(product, 120)).to eq(7 => { pack: pack1, count: 2}, 11 => { pack: pack2, count: 1 }, 19 => { pack: pack3, count: 5 })
+      # expect(FastSolutionFinder.solve(product, 150)).to eq(7 => 2, 11 => 2, 19 => 6)
 
       expect(FastSolutionFinder.solve(product, 15)).to eq(nil)
     end
