@@ -14,7 +14,26 @@ describe 'PackageService' do
 
       product = Product.new("name", "code", [pack])
 
-      expect(PackageService.call(product, 1)).to eq({ 1 => 1})
+      expect(PackageService.call(product, 1)).to eq({ 1 => 1 })
+    end
+
+    it "my test" do
+      pack1 = Pack.new(1, 30)
+      pack2 = Pack.new(2, 30)
+
+      product = Product.new("name", "code", [pack1, pack2])
+
+      expect(PackageService.call(product, 2)).to eq({ 2 => 1 })
+    end
+
+    it "my test" do
+      pack1 = Pack.new(1, 30)
+      pack2 = Pack.new(2, 30)
+      pack3 = Pack.new(3, 30)
+
+      product = Product.new("name", "code", [pack1, pack2, pack3])
+
+      expect(PackageService.call(product, 6)).to eq({ 3 => 2 })
     end
   end
 end
