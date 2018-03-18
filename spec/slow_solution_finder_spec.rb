@@ -14,7 +14,7 @@ describe 'SlowPackageService' do
 
       product = Product.new('Vegemite Scroll', 'VS5', [pack1, pack2, pack3])
 
-      expect(SlowSolutionFinder.solve(product, 1500)).to eq(3 => 500)
+      expect(SlowSolutionFinder.solve(product, 1500)).to eq(pack3 => 500)
     end
   end
 end

@@ -1,7 +1,6 @@
 require 'models/bakery'
 require 'models/pack'
 require 'models/product'
-require 'models/solution'
 require 'services/fast_solution_finder'
 
 describe 'PackageService' do
@@ -23,7 +22,7 @@ describe 'PackageService' do
       pack = Pack.new(13, 30)
       product = Product.new('Vegemite Scroll', 'VS5', [pack])
 
-      expect(FastSolutionFinder.solve(product, 13)).to eq(13 => { pack: pack, count: 1 })
+      expect(FastSolutionFinder.solve(product, 13)).to eq(pack => 1)
     end
 
     it 'should process a lot of packs types correctly' do
@@ -33,11 +32,11 @@ describe 'PackageService' do
 
       product = Product.new('Vegemite Scroll', 'VS5', [pack1, pack2, pack3])
 
-      expect(FastSolutionFinder.solve(product, 6)).to eq(3 => { pack: pack3, count: 2 })
-      expect(FastSolutionFinder.solve(product, 14)).to eq(2 => { pack: pack2, count: 1 }, 3 => { pack: pack3, count: 4 })
-      expect(FastSolutionFinder.solve(product, 15)).to eq(3 => { pack: pack3, count: 5 })
+      expect(FastSolutionFinder.solve(product, 6)).to eq(pack3 => 2)
+      expect(FastSolutionFinder.solve(product, 14)).to eq(pack2 => 1, pack3 => 4)
+      expect(FastSolutionFinder.solve(product, 15)).to eq(pack3 => 5)
 
-      expect(FastSolutionFinder.solve(product, 15)).to eq(3 => { pack: pack3, count: 5 })
+      expect(FastSolutionFinder.solve(product, 15)).to eq(pack3 => 5)
     end
 
     it 'should process complex tasks correctly' do
@@ -47,9 +46,9 @@ describe 'PackageService' do
 
       product = Product.new('Vegemite Scroll', 'VS5', [pack1, pack2, pack3])
 
-      expect(FastSolutionFinder.solve(product, 14)).to eq(7 => { pack: pack1, count: 2 })
-      expect(FastSolutionFinder.solve(product, 120)).to eq(7 => { pack: pack1, count: 2}, 11 => { pack: pack2, count: 1 }, 19 => { pack: pack3, count: 5 })
-      # expect(FastSolutionFinder.solve(product, 150)).to eq(7 => 2, 11 => 2, 19 => 6)
+      expect(FastSolutionFinder.solve(product, 14)).to eq(pack1 => 2)
+      expect(FastSolutionFinder.solve(product, 120)).to eq(pack1 => 2, pack2 => 1, pack3 => 5)
+      expect(FastSolutionFinder.solve(product, 150)).to eq(pack1 => 2, pack2 => 2, pack3 => 6)
 
       expect(FastSolutionFinder.solve(product, 15)).to eq(nil)
     end
@@ -65,7 +64,7 @@ describe 'PackageService' do
 
       product = Product.new('Vegemite Scroll', 'VS5', [pack1, pack2, pack3, pack4, pack5, pack6])
 
-      expect(FastSolutionFinder.solve(product, 1500)).to eq(7 => 2, 15 => 2, 112 => 13)
+      expect(FastSolutionFinder.solve(product, 1500)).to eq(pack4 => 2, pack6 => 2, pack2 => 13)
     end
 
     it 'should process fast with large numbers' do
@@ -77,7 +76,7 @@ describe 'PackageService' do
 
       product = Product.new('Vegemite Scroll', 'VS5', [pack1, pack2, pack3])
 
-      expect(FastSolutionFinder.solve(product, 1500)).to eq(3 => 500)
+      expect(FastSolutionFinder.solve(product, 1500)).to eq(pack3 => 500)
     end
   end
 end

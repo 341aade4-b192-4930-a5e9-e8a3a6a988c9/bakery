@@ -19,7 +19,7 @@ class SlowSolutionFinder
         solution = try_get_next_pack(list_of_packs, number_of_items - count * first_pack.count)
 
         if solution
-          solution[first_pack.count] = count if count > 0
+          solution[first_pack] = count if count > 0
 
           best_solution = get_better_solution(best_solution, solution)
         end
