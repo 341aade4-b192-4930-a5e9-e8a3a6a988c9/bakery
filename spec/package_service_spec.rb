@@ -36,6 +36,8 @@ describe 'PackageService' do
       expect(PackageService.call(product, 6)).to eq({ 3 => 2 })
       expect(PackageService.call(product, 14)).to eq({ 3 => 4, 2 => 1 })
       expect(PackageService.call(product, 15)).to eq({ 3 => 5 })
+
+      puts PackageService.call(product, 15000)
     end
   end
 end
