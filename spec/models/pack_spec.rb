@@ -16,16 +16,14 @@ describe 'Pack' do
       expect { Pack.new(1, 'invalid') }.to raise_error(ArgumentError)
     end
 
-    it 'should be eq for pack with same data' do
+    it 'should be eql as a hash keys when pack has same data' do
       pack_1 = Pack.new(1, 2)
       pack_2 = Pack.new(1, 2)
 
       hash = {}
-      hash[pack_1] += 1
-      hash[pack_2] += 1
+      hash[pack_1] = 'test'
 
-      puts hash.inspect
-      # expect(pack_1).to eq pack_2
+      expect(hash[pack_2]).to eq 'test'
     end
   end
 end

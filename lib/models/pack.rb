@@ -12,4 +12,8 @@ class Pack
   def eql?(other)
     count == other.count && price == other.price
   end
+
+  def hash
+    [ count, price ].hash
+  end
 end
